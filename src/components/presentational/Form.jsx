@@ -6,7 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
-import {option1, option2} from '../../constants'
+import {option1, option2} from '../../data/constants'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

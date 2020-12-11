@@ -1,6 +1,6 @@
 import actionTypes from "./actionTypes";
 import axios from "axios";
-import {option1, option2} from '../../constants'
+import {option1, option2} from '../../data/constants'
 
 export const showCost = () => {
     let showCost = true;
