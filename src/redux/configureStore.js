@@ -3,7 +3,7 @@ import {createStore, applyMiddleware, compose} from "redux";
 import thunk from 'redux-thunk';
 
 const initialState = {
-    routeCalculatorReducer: {},
+    routeCalculatorReducer: {showCost: false, loadCost: 0},
   };
 
 const configureStore = (initialState) => {

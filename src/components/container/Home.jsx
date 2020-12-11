@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
 import { useSelector } from "react-redux";
-import { loadCost } from "../../redux/actions/routeActions";
+import { showCost, loadCost } from "../../redux/actions/routeActions";
 import { useDispatch } from "react-redux";
 import Form from "../presentational/Form";
 
@@ -10,8 +10,8 @@ const Home = () => {
   let [distance, setDistance] = useState("");
   let [costRatio, setCostRatio] = useState("");
 
+  const show = useSelector((state) => state.routeCalculatorReducer.showCost);
   const cost = useSelector((state) => state.routeCalculatorReducer.loadCost);
-  console.log(cost);
 
   const onFieldChange = (value, setValue) => {
     setValue(value);
@@ -20,6 +20,7 @@ const Home = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
+    dispatch(showCost());
     dispatch(loadCost(distance, costRatio));
   };
 
@@ -36,9 +37,9 @@ const Home = () => {
           handleSubmit={handleSubmit}
         />
       </section>
-      <h3 className="home__calculatated-message">
+      {show && <h3 className="home__calculatated-message">
         The resulting cost is {cost} euros.
-      </h3>
+      </h3>}
     </main>
   );
 };
