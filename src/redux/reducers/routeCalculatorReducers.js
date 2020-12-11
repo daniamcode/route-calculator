@@ -2,10 +2,10 @@ import actionTypes from '../actions/actionTypes';
 
 const routeCalculatorReducers = (state = {}, action = {}) => {
     switch (action.type) {
-        case actionTypes.LOAD_ROUTE:
+        case actionTypes.LOAD_COST:
         return {
           ...state,
-          loadRoute: action.payload
+          loadCost: action.payload
         };
       default:
         return state;

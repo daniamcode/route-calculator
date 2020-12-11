@@ -1,0 +1,26 @@
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
+.home__form-inner-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: auto;
+}
+
+.home__form-title {
+    font-size: 20px;
+    margin: 40px auto;
+}
+
+.home__calculatated-message {
+    margin-top: 40px;
+}
+
+@media screen and (min-width: 800px) {
+    .home__form-inner-container {
+      width: 40%;
+    }
+  }

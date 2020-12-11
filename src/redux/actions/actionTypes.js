@@ -1,5 +1,6 @@
 const actionTypes = {
-    LOAD_ROUTE: "LOAD_ROUTE"
+    LOAD_COST: "LOAD_COST",
+    SHOW_COST: "SHOW_COST"
 }
 
 export default actionTypes

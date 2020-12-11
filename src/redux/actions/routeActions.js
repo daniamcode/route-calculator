@@ -2,10 +2,10 @@ import actionTypes from "./actionTypes";
 import axios from "axios";
 
 
-export const loadRoute = () => {
-    let loadRoute = 'this is a first test';
+export const loadCost = (distance, costRatio) => {
+    let cost = distance * costRatio;
     return ({
-        type: actionTypes.LOAD_ROUTE,
-        payload: loadRoute
+        type: actionTypes.LOAD_COST,
+        payload: cost
     });
 }
