@@ -31,7 +31,10 @@ const Form = ({
   onFieldChange,
   handleSubmit,
 }) => {
+  const option1 = 'Manually'
+  const option2 = 'Via Origin and Destination'
   const classes = useStyles();
+
   return (
     <form className="home__form" onSubmit={handleSubmit}>
       <div className="home__form-title">
@@ -39,18 +42,18 @@ const Form = ({
       </div>
       <div className="home__form-inner-container">
         <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">Distance Entry</InputLabel>
+          <InputLabel id="demo-simple-select-label">How do you want to entry the distance?</InputLabel>
           <Select
             labelId="option-label"
             id="option"
             value={option}
             onChange={(event) => onFieldChange(event.target.value, setOption)}
           >
-            <MenuItem value={'Manually'}>Manually</MenuItem>
-            <MenuItem value={'Via Origin and Destination'}>Via Origin and Destination</MenuItem>
+            <MenuItem value={option1}>Manually</MenuItem>
+            <MenuItem value={option2}>Via Origin and Destination</MenuItem>
           </Select>
         </FormControl>
-        <TextField
+        {option === option1 && <TextField
           id="distance"
           variant="filled"
           className="home__form-input"
@@ -59,8 +62,8 @@ const Form = ({
           required
           value={distance}
           onChange={(event) => onFieldChange(event.target.value, setDistance)}
-        />
-        <TextField
+        />}
+        {option === option2 && <TextField
           id="origin"
           variant="filled"
           className="home__form-input"
@@ -69,8 +72,8 @@ const Form = ({
           required
           value={origin}
           onChange={(event) => onFieldChange(event.target.value, setOrigin)}
-        />
-        <TextField
+        />}
+        {option === option2 && <TextField
           id="destination"
           variant="filled"
           className="home__form-input"
@@ -81,8 +84,8 @@ const Form = ({
           onChange={(event) =>
             onFieldChange(event.target.value, setDestination)
           }
-        />
-        <TextField
+        />}
+        {option && <TextField
           id="costRatio"
           variant="filled"
           className="home__form-input"
@@ -91,15 +94,15 @@ const Form = ({
           required
           value={costRatio}
           onChange={(event) => onFieldChange(event.target.value, setCostRatio)}
-        />
-        <Button
+        />}
+        {option && <Button
           variant="contained"
           color="primary"
           className="home__form-button"
           type="submit"
         >
           Calculate cost of the route
-        </Button>
+        </Button>}
       </div>
     </form>
   );
