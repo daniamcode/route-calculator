@@ -6,7 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
-import constants from '../../constants'
+import {option1, option2} from '../../constants'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -48,11 +48,11 @@ const Form = ({
             value={option}
             onChange={(event) => onFieldChange(event.target.value, setOption)}
           >
-            <MenuItem value={constants.option1}>Manually</MenuItem>
-            <MenuItem value={constants.option2}>Via Origin and Destination</MenuItem>
+            <MenuItem value={option1}>Manually</MenuItem>
+            <MenuItem value={option2}>Via Origin and Destination</MenuItem>
           </Select>
         </FormControl>
-        {option === constants.option1 && <TextField
+        {option === option1 && <TextField
           id="distance"
           variant="filled"
           className="home__form-input"
@@ -62,7 +62,7 @@ const Form = ({
           value={distance}
           onChange={(event) => onFieldChange(event.target.value, setDistance)}
         />}
-        {option === constants.option2 && <TextField
+        {option === option2 && <TextField
           id="origin"
           variant="filled"
           className="home__form-input"
@@ -72,7 +72,7 @@ const Form = ({
           value={origin}
           onChange={(event) => onFieldChange(event.target.value, setOrigin)}
         />}
-        {option === constants.option2 && <TextField
+        {option === option2 && <TextField
           id="destination"
           variant="filled"
           className="home__form-input"

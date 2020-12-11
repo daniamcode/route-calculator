@@ -1,6 +1,2 @@
-const constants = {
-    option1: 'Manually',
-    option2: 'Via Origin and Destination'
-}
-
-export default constants
+export const option1 = 'Manually'
+export const option2 = 'Via Origin and Destination'

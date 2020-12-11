@@ -1,6 +1,6 @@
 import actionTypes from "./actionTypes";
 import axios from "axios";
-import constants from '../../constants'
+import {option1, option2} from '../../constants'
 
 export const showCost = () => {
     let showCost = true;
@@ -12,14 +12,14 @@ export const showCost = () => {
 
 export const loadCost = (option, distance, origin, destination, costRatio) => {
     let cost;
-    if(option === constants.option1) {        
+    if(option === option1) {        
         cost = Math.round((distance * costRatio + Number.EPSILON) * 100) / 100
         return ({
             type: actionTypes.LOAD_COST,
             payload: {cost}
         });
     }
-    if(option === constants.option2) {
+    if(option === option2) {
         return async function (dispatch) {
             let isLoading = true;
             dispatch({
