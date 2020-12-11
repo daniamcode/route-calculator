@@ -21,7 +21,7 @@ using an external service (Google Maps API, Mapbox API...)
 
 ## Resources
 - Create React App: h​ ttps://create-react-app.dev/\
-- Create React App + Redux: ​https://github.com/reduxjs/cra-template-redux\
+- Create React App + Redux: ​https://github.com/reduxjs/cra-template-redux \
 - OSRM API: ​http://project-osrm.org/docs/v5.5.1/api/#general-options → given origin and destination coordinates, it gives you a lot of information (the path points, distance...)\
 - Any library to generate maps: Google Maps, Mapbox...
 
