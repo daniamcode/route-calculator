@@ -1,5 +1,6 @@
 import actionTypes from "./actionTypes";
 import axios from "axios";
+import constants from '../../constants'
 
 export const showCost = () => {
     let showCost = true;
@@ -9,49 +10,52 @@ export const showCost = () => {
     });
 }
 
-export const loadCost = (distance, costRatio) => {
-    let cost = distance * costRatio;
-    return ({
-        type: actionTypes.LOAD_COST,
-        payload: cost
-    });
-}
-
-export const getDistance = (origin, destination) => {
-    return async function (dispatch) {
-        let isLoading = true;
-        dispatch({
-            type: actionTypes.GET_DISTANCE,
-            payload: {
-                isLoading
-            }
+export const loadCost = (option, distance, origin, destination, costRatio) => {
+    let cost;
+    if(option === constants.option1) {        
+        cost = distance * costRatio;
+        return ({
+            type: actionTypes.LOAD_COST,
+            payload: cost
         });
-        const response = await axios.get(
-            'http://router.project-osrm.org/route/v1/driving/41.3879,2.16992;41.98311,2.82493'
-            )
-            .catch(error => {
-                if (!error.response) {
-                    error.response = 'Network Error'
-                }
-                isLoading = false;
-                dispatch({
-                    type: actionTypes.GET_DISTANCE,
-                    payload: {
-                        error,
-                        isLoading
-                    }
-                })
-            })
-        if (response !== undefined) {
-            isLoading = false;
-            console.log(response)
+    }
+    if(option === constants.option2) {
+        return async function (dispatch) {
+            let isLoading = true;
             dispatch({
-                type: actionTypes.GET_DISTANCE,
+                type: actionTypes.LOAD_COST,
                 payload: {
-                    response,
                     isLoading
                 }
             });
+            const response = await axios.get(
+                `http://router.project-osrm.org/route/v1/driving/${origin};${destination}`
+                )
+                .catch(error => {
+                    if (!error.response) {
+                        error.response = 'Network Error'
+                    }
+                    isLoading = false;
+                    dispatch({
+                        type: actionTypes.LOAD_COST,
+                        payload: {
+                            error,
+                            isLoading
+                        }
+                    })
+                })
+            if (response !== undefined) {
+                isLoading = false;
+                cost = Math.round((response?.data?.routes[0]?.distance.toFixed(2) / 1000 * costRatio + Number.EPSILON) * 100) / 100
+                dispatch({
+                    type: actionTypes.LOAD_COST,
+                    payload: {
+                        cost,
+                        isLoading
+                    }
+                });
+            }
         }
     }
 }
+

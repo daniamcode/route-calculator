@@ -1,7 +1,6 @@
 const actionTypes = {
     LOAD_COST: "LOAD_COST",
-    SHOW_COST: "SHOW_COST",
-    GET_DISTANCE: "GET_DISTANCE"
+    SHOW_COST: "SHOW_COST"
 }
 
 export default actionTypes

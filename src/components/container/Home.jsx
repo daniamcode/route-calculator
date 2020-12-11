@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
 import { useSelector } from "react-redux";
-import { showCost, loadCost, getDistance } from "../../redux/actions/routeActions";
+import { showCost, loadCost } from "../../redux/actions/routeActions";
 import { useDispatch } from "react-redux";
 import Form from "../presentational/Form";
+import Spinner from "../presentational/Spinner";
 
 const Home = () => {
   let dispatch = useDispatch();
@@ -14,7 +15,9 @@ const Home = () => {
   let [destination, setDestination] = useState("");
 
   const showMessage = useSelector((state) => state.routeCalculatorReducer.showCost);
-  const cost = useSelector((state) => state.routeCalculatorReducer.loadCost);
+  const cost = useSelector((state) => state.routeCalculatorReducer.loadCost.cost);
+  const isLoading = useSelector((state) => state.routeCalculatorReducer.loadCost.isLoading);
+  const error = useSelector((state) => state.routeCalculatorReducer.loadCost.error);
 
   const onFieldChange = (value, setValue) => {
     setValue(value);
@@ -24,8 +27,7 @@ const Home = () => {
     event.preventDefault();
     event.target.reset();
     dispatch(showCost());
-    dispatch(loadCost(distance, costRatio));
-    dispatch(getDistance());
+    dispatch(loadCost(option, distance, origin, destination, costRatio));
   };
 
   return (
@@ -47,7 +49,14 @@ const Home = () => {
           handleSubmit={handleSubmit}
         />
       </section>
-      {showMessage && <h3 className="home__calculatated-message">
+      {showMessage && isLoading === true ? (
+    <div className="spinner-active">
+      <Spinner />
+    </div>
+     ) : error?.response ? (
+         <h1>{error.response}</h1>
+     ) : 
+      <h3 className="home__calculatated-message">
         The resulting cost is {cost} euros.
       </h3>}
     </main>
