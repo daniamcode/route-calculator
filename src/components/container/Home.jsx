@@ -9,6 +9,7 @@ import Spinner from "../presentational/Spinner";
 const Home = () => {
   let dispatch = useDispatch();
   let [option, setOption] = useState("");
+  let [vehicle, setVehicle] = useState("");
   let [distance, setDistance] = useState("");
   let [costRatio, setCostRatio] = useState("");
   let [origin, setOrigin] = useState("");
@@ -35,7 +36,7 @@ const Home = () => {
     event.preventDefault();
     event.target.reset();
     dispatch(showCost());
-    dispatch(loadCost(option, distance, origin, destination, costRatio));
+    dispatch(loadCost(option, vehicle, distance, origin, destination, costRatio));
   };
 
   return (
@@ -45,6 +46,8 @@ const Home = () => {
         <Form
           option={option}
           setOption={setOption}
+          vehicle={vehicle}
+          setVehicle={setVehicle}
           distance={distance}
           setDistance={setDistance}
           costRatio={costRatio}
@@ -65,7 +68,7 @@ const Home = () => {
         <h1>{error.response}</h1>
       ) : showMessage ? (
         <h3 className="home__calculatated-message">
-          The resulting cost is {cost} euros.
+          The resulting cost is {cost} euros, including the Fees.
         </h3>
       ) : (
         <></>
