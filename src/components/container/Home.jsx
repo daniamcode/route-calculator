@@ -68,7 +68,7 @@ const Home = () => {
         <h1>{error.response}</h1>
       ) : showMessage ? (
         <h3 className="home__calculatated-message">
-          The resulting cost is {cost} euros, including the Fees.
+          The resulting cost is {cost} euros, including Fees.
         </h3>
       ) : (
         <></>
