@@ -14,10 +14,18 @@ const Home = () => {
   let [origin, setOrigin] = useState("");
   let [destination, setDestination] = useState("");
 
-  const showMessage = useSelector((state) => state.routeCalculatorReducer.showCost);
-  const cost = useSelector((state) => state.routeCalculatorReducer.loadCost.cost);
-  const isLoading = useSelector((state) => state.routeCalculatorReducer.loadCost.isLoading);
-  const error = useSelector((state) => state.routeCalculatorReducer.loadCost.error);
+  const showMessage = useSelector(
+    (state) => state.routeCalculatorReducer.showCost
+  );
+  const cost = useSelector(
+    (state) => state.routeCalculatorReducer.loadCost.cost
+  );
+  const isLoading = useSelector(
+    (state) => state.routeCalculatorReducer.loadCost.isLoading
+  );
+  const error = useSelector(
+    (state) => state.routeCalculatorReducer.loadCost.error
+  );
 
   const onFieldChange = (value, setValue) => {
     setValue(value);
@@ -50,15 +58,18 @@ const Home = () => {
         />
       </section>
       {showMessage && isLoading === true ? (
-    <div className="spinner-active">
-      <Spinner />
-    </div>
-     ) : error?.response ? (
-         <h1>{error.response}</h1>
-     ) : 
-      <h3 className="home__calculatated-message">
-        The resulting cost is {cost} euros.
-      </h3>}
+        <div className="spinner-active">
+          <Spinner />
+        </div>
+      ) : showMessage && error?.response ? (
+        <h1>{error.response}</h1>
+      ) : showMessage ? (
+        <h3 className="home__calculatated-message">
+          The resulting cost is {cost} euros.
+        </h3>
+      ) : (
+        <></>
+      )}
     </main>
   );
 };

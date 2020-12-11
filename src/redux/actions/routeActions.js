@@ -13,10 +13,10 @@ export const showCost = () => {
 export const loadCost = (option, distance, origin, destination, costRatio) => {
     let cost;
     if(option === constants.option1) {        
-        cost = distance * costRatio;
+        cost = Math.round((distance * costRatio + Number.EPSILON) * 100) / 100
         return ({
             type: actionTypes.LOAD_COST,
-            payload: cost
+            payload: {cost}
         });
     }
     if(option === constants.option2) {
