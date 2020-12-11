@@ -23,6 +23,10 @@
     margin-top: 40px;
 }
 
+.map {
+    margin-top: 50px;
+}
+
 @media screen and (min-width: 800px) {
     .home__form-inner-container {
         width: 40%;
