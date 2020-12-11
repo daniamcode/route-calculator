@@ -1,3 +1,34 @@
+# Frontend Technical Test
+New feature request! Create a route cost calculator. This new feature should allow the user to:
+1. Introduce the distance
+2. Introduce the €/km
+3. Calculate the total cost of the route
+Sounds simple right? 2 inputs and the work is done... Yes, but let’s complicate it a little bit. Let’s add some new requirements:
+4. In addition to the ability to introduce the distance manually, adding another option to calculate it from the origin and destination coordinates would simplify the process, so let’s add this feature (check the resources link, OSRM API). Let the user introduce the origin and destination coordinates, and calculate the distance automatically.
+5. Add a couple of predefined fees (€/Km), e.g. Truck → 0.50€/Km, Van → 0.25€/Km
+6. Draw the origin and destination in a map, and it would be nice to see the route
+(check the resources links for more information).
+Requirements
+● Use React
+● Feel free to use any library you want
+● Enjoy, and don’t take it too seriously, we don’t expect you to be working on it for
+days.
+Bonus features
+● Use Redux to request the information to the API.
+● Replace the coordinates inputs by address inputs that geolocate the coordinates
+using an external service (Google Maps API, Mapbox API...)
+Resources
+● Create React App: h​ ttps://create-react-app.dev/
+● Create React App + Redux: ​https://github.com/reduxjs/cra-template-redux
+● OSRM API: ​http://project-osrm.org/docs/v5.5.1/api/#general-options → given origin
+and destination coordinates, it gives you a lot of information (the path points,
+distance...)
+● Any library to generate maps: Google Maps, Mapbox...
+What will be evaluated
+● User experience and creativity
+● Code quality (we don’t expect you to create everything from scratch, so use
+create-react-app or any other generator)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
