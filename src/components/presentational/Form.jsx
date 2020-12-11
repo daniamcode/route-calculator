@@ -6,7 +6,7 @@ const Form = ({distance, setDistance, costRatio, setCostRatio, onFieldChange, ha
     return (
         <form className="home__form" onSubmit={handleSubmit}>
           <div className="home__form-title">
-            Introduce the data and calculate the route!
+            Introduce the data and calculate the route's cost!
           </div>
           <div className="home__form-inner-container">
             <TextField

@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     <main className="home">
-      <h1>This is a Route Calculator for Hedyla</h1>
+      <h1>This is a Route Cost Calculator for Hedyla</h1>
       <section className="home__form-container">
         <Form
           distance={distance}
