@@ -58,7 +58,7 @@ const Home = () => {
         />
       </section>
       {showMessage && isLoading === true ? (
-        <div className="spinner-active">
+        <div className="spinner__active">
           <Spinner />
         </div>
       ) : showMessage && error?.response ? (

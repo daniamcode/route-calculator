@@ -19,8 +19,12 @@
     margin-top: 40px;
 }
 
+.spinner__active {
+    margin-top: 40px;
+}
+
 @media screen and (min-width: 800px) {
     .home__form-inner-container {
-      width: 40%;
+        width: 40%;
     }
-  }
+}
