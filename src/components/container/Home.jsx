@@ -1,9 +1,13 @@
 import React from "react";
 import "../styles/Home.css";
 import { useSelector } from "react-redux";
+import { loadRoute } from "../../redux/actions/routeActions";
+import { useDispatch } from "react-redux";
 
-const LandingPage = () => {
-  const routeCalculator = useSelector(
+const Home = () => {
+    let dispatch = useDispatch();
+    dispatch(loadRoute());
+    const routeCalculator = useSelector(
     (state) => state.routeCalculatorReducer.loadRoute
   );
 
@@ -15,4 +19,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default Home;
