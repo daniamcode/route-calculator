@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import Form from "../presentational/Form";
 import Spinner from "../presentational/Spinner";
 import { googleMapsApiKey } from "../../data/constants";
-import formatPoint from "../../scripts/formatPoint";
 import { withScriptjs, withGoogleMap } from "react-google-maps";
 import Map from "../presentational/Map";
 import { option2 } from "../../data/constants";
@@ -20,10 +19,7 @@ const Home = () => {
   let [origin, setOrigin] = useState("");
   let [destination, setDestination] = useState("");
 
-  const WrappedMap = withScriptjs(withGoogleMap(Map));
-
-  const formattedOrigin = formatPoint(origin);
-  const formattedDestination = formatPoint(destination);
+  const WrappedMap = withScriptjs(withGoogleMap(Map));  
 
   const showMessage = useSelector(
     (state) => state.routeCalculatorReducer.showCost
@@ -40,6 +36,17 @@ const Home = () => {
   const error = useSelector(
     (state) => state.routeCalculatorReducer.loadCost?.error
   );
+  const formattedOrigin = useSelector(
+    (state) => state.routeCalculatorReducer.loadCost?.originGeoCodedFormatted
+  );
+  const formattedDestination = useSelector(
+    (state) => state.routeCalculatorReducer.loadCost?.destinationGeoCodedFormatted
+  );
+
+  console.log(formattedOrigin)
+  console.log(formattedDestination)
+
+
 
   const onFieldChange = (value, setValue) => {
     setValue(value);

@@ -77,6 +77,14 @@ const Form = ({
             </Select>
           </FormControl>
         )}
+        {/* <ComboBox onSelect={async (address) => {
+        try { const geoCode = await getGeocode({address})
+            console.log(geoCode[0])
+            const {lat, lng} = await getLatLng(geoCode[0])
+            console.log(lat, lng)
+        } 
+            catch(error) {console.log("error")}
+    }}></ComboBox> */}
         {option === option1 && (
           <TextField
             id="distance"
@@ -94,7 +102,7 @@ const Form = ({
             id="origin"
             variant="filled"
             className="home__form-input"
-            placeholder="Introduce the origin coordinates (i.e. 41.3879,2.16992)"
+            placeholder="Introduce the origin (i.e. Vic)"
             name="origin"
             required
             value={origin}
@@ -106,7 +114,7 @@ const Form = ({
             id="destination"
             variant="filled"
             className="home__form-input"
-            placeholder="Introduce the destination coordinates (i.e. 41.98311,2.82493)"
+            placeholder="Introduce the destination (i.e. Berga)"
             name="destination"
             required
             value={destination}

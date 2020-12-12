@@ -6,6 +6,7 @@ import configureStore from '../../../redux/configureStore';
 import Form from '../Form';
 import userEvent from '@testing-library/user-event'
 import { showCost, loadCost } from "../../../redux/actions/routeActions";
+import {option1, option2} from '../../../data/constants'
 
 jest.mock('../../../redux/actions/routeActions');
 
@@ -37,5 +38,14 @@ describe('Form Component', () => {
     render(<Form />, { wrapper });
 
     expect(document.querySelector('.home__form')).toBeInTheDocument();
+  })
+
+  xtest('Should render type of vehicle question', () => {
+    const state = {showCost: false, loadCost: {cost: 0, isLoading: false, option: option2, error: {}}}
+    wrapper = wrapperFactory(state);
+
+    render(<Form />, { wrapper });
+
+    expect(document.querySelector('.home__form-input')).toBeInTheDocument();
   })
 })

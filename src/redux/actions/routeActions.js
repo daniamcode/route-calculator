@@ -4,7 +4,11 @@ import {
     option1,
     option2
 } from '../../data/constants';
-import getFee from '../../scripts/getFee'
+import getFee from '../../scripts/getFee';
+import {
+    googleMapsApiKey
+} from "../../data/constants";
+
 
 export const showCost = () => {
     let showCost = true;
@@ -24,8 +28,7 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                 cost
             }
         });
-    }
-    else if (option === option2) {
+    } else if (option === option2) {
         return async function (dispatch) {
             let isLoading = true;
             dispatch({
@@ -34,8 +37,18 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                     isLoading
                 }
             });
-            const response = await axios.get(
-                    `http://router.project-osrm.org/route/v1/driving/${origin};${destination}`
+            const originGeoCoded = await axios.get(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${origin}&key=${googleMapsApiKey}`
+            )
+            const destinationGeoCoded = await axios.get(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${destination}&key=${googleMapsApiKey}`
+            )
+            
+            const originGeoCodedFormatted = originGeoCoded?.data?.results[0]?.geometry?.location
+            const destinationGeoCodedFormatted = destinationGeoCoded?.data?.results[0]?.geometry?.location
+        
+            const osrmResponse = await axios.get(
+                    `http://router.project-osrm.org/route/v1/driving/${originGeoCodedFormatted.lat},${originGeoCodedFormatted.lng};${destinationGeoCodedFormatted.lat},${destinationGeoCodedFormatted.lng}`
                 )
                 .catch(error => {
                     if (!error.response) {
@@ -50,21 +63,24 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                         }
                     })
                 })
-            if (response !== undefined) {
+            if (osrmResponse !== undefined) {
                 isLoading = false;
-                cost = Math.round((response?.data?.routes[0]?.distance / 1000 * (parseFloat(costRatio) + getFee(vehicle)) + Number.EPSILON) * 100) / 100
+                cost = Math.round((osrmResponse?.data?.routes[0]?.distance / 1000 * (parseFloat(costRatio) + getFee(vehicle)) + Number.EPSILON) * 100) / 100
+                console.log(originGeoCodedFormatted)
                 dispatch({
                     type: actionTypes.LOAD_COST,
                     payload: {
                         cost,
                         isLoading,
-                        option
+                        option,
+                        originGeoCodedFormatted,
+                        destinationGeoCodedFormatted
                     }
                 });
             }
         }
-    }
-    else {
+    } else {
         console.log("No option 1 or 2?")
     }
 }
+
