@@ -5,6 +5,9 @@ import { Provider } from 'react-redux';
 import configureStore from '../../../redux/configureStore';
 import Home from '../Home';
 import userEvent from '@testing-library/user-event'
+import { showCost, loadCost } from "../../../redux/actions/routeActions";
+
+jest.mock('../../../redux/actions/routeActions');
 
 describe('Home Component', () => {
   let wrapper = null;
@@ -36,31 +39,28 @@ describe('Home Component', () => {
     expect(document.querySelector('.home__form-container')).toBeInTheDocument();
   })
 
-  xtest('Should execute handleSubmit and call showStatus and loadStatus when clicking "Check"', () => {
+  xtest('Should render spinner', () => {
+    const state = {showCost: true, loadCost: {cost: 0, isLoading: true, option: "", error: {}}}
+    wrapper = wrapperFactory(state);
+
+    render(<Home />, { wrapper });
+
+    expect(document.querySelector('.spinner__active')).toBeInTheDocument();
+  })
+
+  test('Should execute handleSubmit and call showCost and loadCost when clicking "Calculate"', () => {
     const state = {
       
     };
     wrapper = wrapperFactory(state);
 
-    render(<LandingPage />, { wrapper });
+    render(<Home />, { wrapper });
 
-    const form = document.querySelector('.status__form');
+    const form = document.querySelector('.home__form');
 
     fireEvent.submit(form);
 
-    expect(showStatus).toHaveBeenCalled();
-    expect(loadStatus).toHaveBeenCalled();
-  });
-
-  xtest('Manage input field', () => {
-    const state = {
-      
-    };
-    wrapper = wrapperFactory(state);
-
-    render(<LandingPage />, { wrapper });
-
-    userEvent.type(screen.getByRole('textbox'), 'google.com')
-    expect(screen.getByRole('textbox')).toHaveValue('google.com')
+    expect(showCost).toHaveBeenCalled();
+    expect(loadCost).toHaveBeenCalled();
   });
 })

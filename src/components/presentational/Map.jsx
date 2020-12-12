@@ -4,9 +4,8 @@ import { GoogleMap, Marker } from "react-google-maps";
 /* global google */
 
 const Map = ({formattedOrigin, formattedDestination}) => {
-    console.log(formattedOrigin)
-    console.log(formattedDestination)
   return (
+    <section className="googleMap">
     <GoogleMap defaultZoom={9} defaultCenter={{ lat: 41.75, lng: 1.8 }}>
       <Marker position={formattedOrigin} />
       <Marker position={formattedDestination} />
@@ -16,6 +15,7 @@ const Map = ({formattedOrigin, formattedDestination}) => {
         travelMode={google.maps.TravelMode.DRIVING}
       /> */}
     </GoogleMap>
+    </section>
   );
 };
 
