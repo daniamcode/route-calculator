@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { showCost, loadCost } from "../../redux/actions/routeActions";
 import { useDispatch } from "react-redux";
 import Form from "../presentational/Form";
-import Map from "../presentational/Map";
 import Spinner from "../presentational/Spinner";
-import { withScriptjs, withGoogleMap } from "react-google-maps";
 import { googleMapsApiKey } from "../../data/constants";
+import formatPoint from "../../scripts/formatPoint";
+import { withScriptjs, withGoogleMap } from "react-google-maps";
+import Map from "../presentational/Map";
+import { option2 } from "../../data/constants";
 
 const Home = () => {
   let dispatch = useDispatch();
@@ -15,14 +17,22 @@ const Home = () => {
   let [vehicle, setVehicle] = useState("");
   let [distance, setDistance] = useState("");
   let [costRatio, setCostRatio] = useState("");
-  let [origin, setOrigin] = useState("");
-  let [destination, setDestination] = useState("");
+  let [origin, setOrigin] = useState("0,0");
+  let [destination, setDestination] = useState("0,0");
+
+  const WrappedMap = withScriptjs(withGoogleMap(Map));
+
+  const formattedOrigin = formatPoint(origin);
+  const formattedDestination = formatPoint(destination);
 
   const showMessage = useSelector(
     (state) => state.routeCalculatorReducer.showCost
   );
   const cost = useSelector(
     (state) => state.routeCalculatorReducer.loadCost.cost
+  );
+  const showMap = useSelector(
+    (state) => state.routeCalculatorReducer.loadCost.option
   );
   const isLoading = useSelector(
     (state) => state.routeCalculatorReducer.loadCost.isLoading
@@ -43,8 +53,6 @@ const Home = () => {
       loadCost(option, vehicle, distance, origin, destination, costRatio)
     );
   };
-
-  const WrappedMap = withScriptjs(withGoogleMap(Map));
 
   return (
     <main className="home">
@@ -80,14 +88,18 @@ const Home = () => {
       ) : (
         <></>
       )}
-      <section className="map">
-        <WrappedMap
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.expkey&libraries=geometry,drawing,places&key=${googleMapsApiKey}`}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: "80vh" }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-        />
-      </section>
+      {showMap === option2 && (
+        <section className="map">
+          <WrappedMap
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing,places&key=${googleMapsApiKey}`}
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={<div style={{ height: "80vh" }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            formattedOrigin={formattedOrigin}
+            formattedDestination={formattedDestination}
+          />
+        </section>
+      )}
     </main>
   );
 };

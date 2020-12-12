@@ -57,7 +57,8 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                     type: actionTypes.LOAD_COST,
                     payload: {
                         cost,
-                        isLoading
+                        isLoading,
+                        option
                     }
                 });
             }

@@ -1,11 +1,22 @@
-import React from 'react';
-import {GoogleMap} from 'react-google-maps'
+import React from "react";
+import { GoogleMap, Marker } from "react-google-maps";
+// import Directions from "./Directions";
+/* global google */
 
-const Map = () => {
-return (
-    <GoogleMap defaultZoom={3} defaultCenter={{lat: 41.3879, lng: 2.16992}}/>
-)
+const Map = ({formattedOrigin, formattedDestination}) => {
+    console.log(formattedOrigin)
+    console.log(formattedDestination)
+  return (
+    <GoogleMap defaultZoom={9} defaultCenter={{ lat: 41.3879, lng: 2.16992 }}>
+      <Marker position={formattedOrigin} />
+      <Marker position={formattedDestination} />
+      {/* <Directions
+        origin={{ lat: 41.2, lng: 2 }}
+        destination={{ lat: 45.3, lng: 12 }}
+        travelMode={google.maps.TravelMode.DRIVING}
+      /> */}
+    </GoogleMap>
+  );
+};
 
-}
-
-export default Map
+export default Map;
