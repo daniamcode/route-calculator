@@ -7,7 +7,7 @@ const Map = ({formattedOrigin, formattedDestination}) => {
     console.log(formattedOrigin)
     console.log(formattedDestination)
   return (
-    <GoogleMap defaultZoom={9} defaultCenter={{ lat: 41.3879, lng: 2.16992 }}>
+    <GoogleMap defaultZoom={9} defaultCenter={{ lat: 41.75, lng: 1.8 }}>
       <Marker position={formattedOrigin} />
       <Marker position={formattedDestination} />
       {/* <Directions
