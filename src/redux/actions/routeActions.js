@@ -17,8 +17,7 @@ export const showCost = () => {
 export const loadCost = (option, vehicle, distance, origin, destination, costRatio) => {
     let cost;
     if (option === option1) {
-        console.log(costRatio)
-        cost = Math.round((distance * costRatio + distance * getFee(vehicle) + Number.EPSILON) * 100) / 100
+        cost = Math.round((distance * (parseFloat(costRatio) + getFee(vehicle)) + Number.EPSILON) * 100) / 100
         return ({
             type: actionTypes.LOAD_COST,
             payload: {
@@ -53,8 +52,7 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                 })
             if (response !== undefined) {
                 isLoading = false;
-                cost = Math.round((response?.data?.routes[0]?.distance / 1000 * costRatio + response?.data?.routes[0]?.distance / 1000 * getFee(vehicle) + Number.EPSILON) * 100) / 100
-                console.log(response?.data?.routes[0]?.distance)
+                cost = Math.round((response?.data?.routes[0]?.distance / 1000 * (parseFloat(costRatio) + getFee(vehicle)) + Number.EPSILON) * 100) / 100
                 dispatch({
                     type: actionTypes.LOAD_COST,
                     payload: {
