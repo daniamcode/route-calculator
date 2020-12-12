@@ -17,8 +17,8 @@ const Home = () => {
   let [vehicle, setVehicle] = useState("");
   let [distance, setDistance] = useState("");
   let [costRatio, setCostRatio] = useState("");
-  let [origin, setOrigin] = useState("0,0");
-  let [destination, setDestination] = useState("0,0");
+  let [origin, setOrigin] = useState("");
+  let [destination, setDestination] = useState("");
 
   const WrappedMap = withScriptjs(withGoogleMap(Map));
 
