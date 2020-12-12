@@ -25,7 +25,7 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
             }
         });
     }
-    if (option === option2) {
+    else if (option === option2) {
         return async function (dispatch) {
             let isLoading = true;
             dispatch({
@@ -63,5 +63,8 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                 });
             }
         }
+    }
+    else {
+        console.log("No option 1 or 2?")
     }
 }

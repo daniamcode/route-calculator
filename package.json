@@ -21,8 +21,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "src/reportWebVitals",
+      "src/data/constants",
+      "src/redux/actions/actionTypes"
+    ]
   },
   "eslintConfig": {
     "extends": [
