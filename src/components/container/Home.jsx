@@ -29,16 +29,16 @@ const Home = () => {
     (state) => state.routeCalculatorReducer.showCost
   );
   const cost = useSelector(
-    (state) => state.routeCalculatorReducer.loadCost.cost
+    (state) => state.routeCalculatorReducer.loadCost?.cost
   );
   const showMap = useSelector(
-    (state) => state.routeCalculatorReducer.loadCost.option
+    (state) => state.routeCalculatorReducer.loadCost?.option
   );
   const isLoading = useSelector(
-    (state) => state.routeCalculatorReducer.loadCost.isLoading
+    (state) => state.routeCalculatorReducer.loadCost?.isLoading
   );
   const error = useSelector(
-    (state) => state.routeCalculatorReducer.loadCost.error
+    (state) => state.routeCalculatorReducer.loadCost?.error
   );
 
   const onFieldChange = (value, setValue) => {
