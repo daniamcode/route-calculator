@@ -1,12 +1,10 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from '../../../redux/configureStore';
 import Form from '../Form';
-import userEvent from '@testing-library/user-event'
-import { showCost, loadCost } from "../../../redux/actions/routeActions";
-import {option1, option2} from '../../../data/constants'
+import {option2} from '../../../data/constants'
 
 jest.mock('../../../redux/actions/routeActions');
 

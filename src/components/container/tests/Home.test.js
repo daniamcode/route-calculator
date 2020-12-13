@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from '../../../redux/configureStore';
 import Home from '../Home';
-import userEvent from '@testing-library/user-event'
 import { showCost, loadCost } from "../../../redux/actions/routeActions";
 
 jest.mock('../../../redux/actions/routeActions');
@@ -54,7 +53,7 @@ describe('Home Component', () => {
 
     render(<Home />, { wrapper });
 
-    expect(document.querySelector('.error__message').innerHTML).toBe("Sorry");
+    expect(document.querySelector('.error__message').innerHTML).toBe("Sorry, there was an error, we're trying to fix it!");
   })
 
   test('Should execute handleSubmit and call showCost and loadCost when clicking "Calculate"', () => {

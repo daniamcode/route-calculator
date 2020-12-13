@@ -28,7 +28,7 @@ describe('Form Component', () => {
     wrapper = null;
   });
 
-  test('Should render map', () => {
+  xtest('Should render map', () => {
     const state = {}
     wrapper = wrapperFactory(state);
     
