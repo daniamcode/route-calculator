@@ -4,10 +4,10 @@ import {
     option1,
     option2
 } from '../../data/constants';
-import getFee from '../../scripts/getFee';
 import {
     googleMapsApiKey
 } from "../../data/constants";
+import costCalculator from '../../scripts/costCalculator'
 
 
 export const showCost = () => {
@@ -21,7 +21,7 @@ export const showCost = () => {
 export const loadCost = (option, vehicle, distance, origin, destination, costRatio) => {
     let cost;
     if (option === option1) {
-        cost = Math.round((distance * (parseFloat(costRatio) + getFee(vehicle)) + Number.EPSILON) * 100) / 100
+        cost = costCalculator(distance, costRatio, vehicle)
         return ({
             type: actionTypes.LOAD_COST,
             payload: {
@@ -37,45 +37,44 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                     isLoading
                 }
             });
-            const originGeoCodedRaw = await axios.get(
-                `https://maps.googleapis.com/maps/api/geocode/json?address=${origin}&key=${googleMapsApiKey}`
-            )
-            const destinationGeoCodedRaw = await axios.get(
-                `https://maps.googleapis.com/maps/api/geocode/json?address=${destination}&key=${googleMapsApiKey}`
-            )
-            const originGeoCodedFormatted = originGeoCodedRaw?.data?.results[0]?.geometry?.location
-            const destinationGeoCodedFormatted = destinationGeoCodedRaw?.data?.results[0]?.geometry?.location
+            try {
+                const originGeoCodedRaw = await axios.get(
+                    `https://maps.googleapis.com/maps/api/geocode/json?address=${origin}&key=${googleMapsApiKey}`
+                )
+                const destinationGeoCodedRaw = await axios.get(
+                    `https://maps.googleapis.com/maps/api/geocode/json?address=${destination}&key=${googleMapsApiKey}`
+                )
+                const originGeoCodedFormatted = originGeoCodedRaw?.data?.results[0]?.geometry?.location
+                const destinationGeoCodedFormatted = destinationGeoCodedRaw?.data?.results[0]?.geometry?.location
 
-            const osrmResponse = await axios.get(
+                const osrmResponse = await axios.get(
                     `http://router.project-osrm.org/route/v1/driving/${originGeoCodedFormatted.lng},${originGeoCodedFormatted.lat};${destinationGeoCodedFormatted.lng},${destinationGeoCodedFormatted.lat}`
                 )
-                .catch(error => {
-                    if (!error.response) {
-                        error.response = 'Network Error'
-                    }
+                if (osrmResponse !== undefined) {
                     isLoading = false;
+                    const osrmResponseFormatted = osrmResponse?.data?.routes[0]?.distance / 1000
+                    console.log(osrmResponseFormatted)
+                    cost = costCalculator(osrmResponseFormatted, costRatio, vehicle)
                     dispatch({
                         type: actionTypes.LOAD_COST,
                         payload: {
-                            //error,
-                            isLoading
+                            cost,
+                            isLoading,
+                            option,
+                            originGeoCodedFormatted,
+                            destinationGeoCodedFormatted
                         }
-                    })
-                })
-            if (osrmResponse !== undefined) {
+                    });
+                }
+            } catch (error) {
                 isLoading = false;
-                cost = Math.round((osrmResponse?.data?.routes[0]?.distance / 1000 * (parseFloat(costRatio) + getFee(vehicle)) + Number.EPSILON) * 100) / 100
-                console.log(originGeoCodedFormatted)
                 dispatch({
                     type: actionTypes.LOAD_COST,
                     payload: {
-                        cost,
-                        isLoading,
-                        option,
-                        originGeoCodedFormatted,
-                        destinationGeoCodedFormatted
+                        error,
+                        isLoading
                     }
-                });
+                })
             }
         }
     } else {

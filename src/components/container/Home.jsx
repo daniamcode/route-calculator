@@ -43,11 +43,6 @@ const Home = () => {
     (state) => state.routeCalculatorReducer.loadCost?.destinationGeoCodedFormatted
   );
 
-  console.log(formattedOrigin)
-  console.log(formattedDestination)
-
-
-
   const onFieldChange = (value, setValue) => {
     setValue(value);
   };
@@ -86,8 +81,8 @@ const Home = () => {
         <div className="spinner__active">
           <Spinner />
         </div>
-      ) : showMessage && error?.response ? (
-        <h1>{error.response}</h1>
+      ) : showMessage && error ? (
+        <h2>{"Sorry, there was an error, we're trying to fix it!"}</h2>
       ) : showMessage ? (
         <h3 className="home__calculatated-message">
           The resulting cost is {cost} euros, including fees.
