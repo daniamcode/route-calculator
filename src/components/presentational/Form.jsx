@@ -77,14 +77,6 @@ const Form = ({
             </Select>
           </FormControl>
         )}
-        {/* <ComboBox onSelect={async (address) => {
-        try { const geoCode = await getGeocode({address})
-            console.log(geoCode[0])
-            const {lat, lng} = await getLatLng(geoCode[0])
-            console.log(lat, lng)
-        } 
-            catch(error) {console.log("error")}
-    }}></ComboBox> */}
         {option === option1 && (
           <TextField
             id="distance"
@@ -93,6 +85,7 @@ const Form = ({
             placeholder="Introduce the distance in km"
             name="distance"
             required
+            type="number"
             value={distance}
             onChange={(event) => onFieldChange(event.target.value, setDistance)}
           />
@@ -131,6 +124,7 @@ const Form = ({
             placeholder="Introduce the cost in €/km"
             name="costRatio"
             required
+            type="number"
             value={costRatio}
             onChange={(event) =>
               onFieldChange(event.target.value, setCostRatio)
