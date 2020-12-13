@@ -8,11 +8,11 @@ describe('routeCalculator reducer', () => {
   });
 
   it('should handle initial state and no action', () => {
-    expect(routeCalculatorReducers(initialState.routeCalculatorReducer)).toEqual({showCost: false, loadCost: {cost: 0, isLoading: false, option: "", error: {}}});
+    expect(routeCalculatorReducers(initialState.routeCalculatorReducer)).toEqual({showCost: false, loadCost: {cost: 0, isLoading: false, option: "", originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {}}});
   });
 
   it('should handle SHOW_COST', () => {
-    let result = {showCost: true, loadCost: {cost: 0, isLoading: false, option: "", error: {}}}
+    let result = {showCost: true, loadCost: {cost: 0, isLoading: false, option: "", originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {}}}
     expect(
       routeCalculatorReducers(
         {

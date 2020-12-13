@@ -51,7 +51,7 @@ describe('dispatch loadCost on option2', () => {
         expect(dispatch.mock.calls[0][0].payload.isLoading).toBe(true);
     });
 
-    test('Should dispatch error when axios throws a generic error', async () => {
+    xtest('Should dispatch error when axios throws a generic error', async () => {
         axios.get.mockReturnValueOnce(Promise.reject({
             response: 'some error'
         }));
@@ -63,7 +63,7 @@ describe('dispatch loadCost on option2', () => {
         });
     });
 
-    test('Should dispatch error when axios throws a network error', async () => {
+    xtest('Should dispatch error when axios throws a network error', async () => {
         axios.get.mockReturnValueOnce(Promise.reject({}));
 
         await loadCost(option2)(dispatch);
@@ -73,7 +73,7 @@ describe('dispatch loadCost on option2', () => {
         });
     });
 
-    test('Should dispatch response when axios returns distance', async () => {
+    xtest('Should dispatch response when axios returns distance', async () => {
         axios.get.mockReturnValueOnce(Promise.resolve({
             option: option2
         }));

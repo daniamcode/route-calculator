@@ -43,12 +43,11 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
             const destinationGeoCoded = await axios.get(
                 `https://maps.googleapis.com/maps/api/geocode/json?address=${destination}&key=${googleMapsApiKey}`
             )
-            
             const originGeoCodedFormatted = originGeoCoded?.data?.results[0]?.geometry?.location
             const destinationGeoCodedFormatted = destinationGeoCoded?.data?.results[0]?.geometry?.location
-        
+
             const osrmResponse = await axios.get(
-                    `http://router.project-osrm.org/route/v1/driving/${originGeoCodedFormatted.lat},${originGeoCodedFormatted.lng};${destinationGeoCodedFormatted.lat},${destinationGeoCodedFormatted.lng}`
+                    `http://router.project-osrm.org/route/v1/driving/${originGeoCodedFormatted.lng},${originGeoCodedFormatted.lat};${destinationGeoCodedFormatted.lng},${destinationGeoCodedFormatted.lat}`
                 )
                 .catch(error => {
                     if (!error.response) {
@@ -58,7 +57,7 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                     dispatch({
                         type: actionTypes.LOAD_COST,
                         payload: {
-                            error,
+                            //error,
                             isLoading
                         }
                     })
@@ -83,4 +82,3 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
         console.log("No option 1 or 2?")
     }
 }
-
