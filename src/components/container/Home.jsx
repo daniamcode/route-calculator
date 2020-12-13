@@ -77,12 +77,12 @@ const Home = () => {
           handleSubmit={handleSubmit}
         />
       </section>
-      {showMessage && isLoading === true ? (
+      {showMessage && isLoading ? (
         <div className="spinner__active">
           <Spinner />
         </div>
       ) : showMessage && error ? (
-        <h2>{"Sorry, there was an error, we're trying to fix it!"}</h2>
+        <h2 className="error__message">{"Sorry, there was an error, we're trying to fix it!"}</h2>
       ) : showMessage ? (
         <h3 className="home__calculatated-message">
           The resulting cost is {cost} euros, including fees.

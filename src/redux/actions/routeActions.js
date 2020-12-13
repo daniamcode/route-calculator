@@ -53,7 +53,6 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                 if (osrmResponse !== undefined) {
                     isLoading = false;
                     const osrmResponseFormatted = osrmResponse?.data?.routes[0]?.distance / 1000
-                    console.log(osrmResponseFormatted)
                     cost = costCalculator(osrmResponseFormatted, costRatio, vehicle)
                     dispatch({
                         type: actionTypes.LOAD_COST,

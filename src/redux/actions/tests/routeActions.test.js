@@ -54,7 +54,7 @@ describe('dispatch loadCost on option2', () => {
         expect(dispatch.mock.calls[0][0].payload.isLoading).toBe(true);
     });
 
-    xtest('Should dispatch error when axios throws a generic error', async () => {
+    test('Should dispatch error when axios throws an error', async () => {
         axios.get.mockReturnValueOnce(Promise.reject({
             response: 'some error'
         }));
@@ -65,45 +65,30 @@ describe('dispatch loadCost on option2', () => {
             response: 'some error'
         });
     });
-
-    xtest('Should dispatch error when axios throws a network error', async () => {
-        axios.get.mockReturnValue(Promise.reject({}));
-
-        await loadCost(option2)(dispatch);
-
-        expect(dispatch.mock.calls[1][0].payload.error).toStrictEqual({
-            response: 'Network Error'
-        });
-    });
-
     
     xtest('Should dispatch response when axios returns distance', async () => {
-        // axios.get.mockImplementation((url) => {
-        //     const origin = 'Vic';
-        //     const destination = 'Berga'
-        //     const originGeoCodedFormatted = {lat: 41, lng: 2}
-        //     const destinationGeoCodedFormatted = {lat: 42, lng: 3}
+        axios.get.mockImplementation((url) => {
+            const origin = 'Vic';
+            const destination = 'Berga'
+            const originGeoCodedFormatted = {lat: 41, lng: 2}
+            const destinationGeoCodedFormatted = {lat: 42, lng: 3}
     
-        //     // eslint-disable-next-line default-case
-        //     switch (url) {
-        //       case `https://maps.googleapis.com/maps/api/geocode/json?address=${origin}&key=${googleMapsApiKey}`:
-        //         return Promise.resolve({})
-        //       case `https://maps.googleapis.com/maps/api/geocode/json?address=${destination}&key=${googleMapsApiKey}`:
-        //         return Promise.resolve({})
-        //         case `http://router.project-osrm.org/route/v1/driving/${originGeoCodedFormatted.lng},${originGeoCodedFormatted.lat};${destinationGeoCodedFormatted.lng},${destinationGeoCodedFormatted.lat}`:
-        //             return Promise.resolve({option: option2})
-        //     //   default:
-        //     //     return Promise.reject(new Error('not found'))
-        //     }
-        //   })
+            // eslint-disable-next-line default-case
+            switch (url) {
+              case `https://maps.googleapis.com/maps/api/geocode/json?address=${origin}&key=${googleMapsApiKey}`:
+                return Promise.resolve({})
+              case `https://maps.googleapis.com/maps/api/geocode/json?address=${destination}&key=${googleMapsApiKey}`:
+                return Promise.resolve({})
+                case `http://router.project-osrm.org/route/v1/driving/${originGeoCodedFormatted.lng},${originGeoCodedFormatted.lat};${destinationGeoCodedFormatted.lng},${destinationGeoCodedFormatted.lat}`:
+                    return Promise.resolve({option: option2})
+            //   default:
+            //     return Promise.reject(new Error('not found'))
+            }
+          })
 
-        axios.get.mockImplementationOnce(Promise.resolve({
-            origin: 'Vic'
-        })).axios.get.mockImplementationOnce(Promise.resolve({
-            destination: 'Berga'
-        })).axios.get.mockImplementationOnce(Promise.resolve({
-            option: option2
-        }))
+        // axios.get.mockImplementation(Promise.resolve({
+        //     option: option2
+        // }))
         
         //     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${origin}&key=${googleMapsApiKey}`).then(users => expect(users).toEqual({data: [{name: 'Bob', items: []}]}))
 

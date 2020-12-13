@@ -40,12 +40,21 @@ describe('Home Component', () => {
   })
 
   xtest('Should render spinner', () => {
-    const state = {showCost: true, loadCost: {cost: 0, isLoading: true, option: "", error: {}}}
+    const state = {showCost: true, loadCost: {isLoading: true, option: "", originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {}}}
     wrapper = wrapperFactory(state);
 
     render(<Home />, { wrapper });
 
     expect(document.querySelector('.spinner__active')).toBeInTheDocument();
+  })
+
+  xtest('Should render error', () => {
+    const state = {showCost: true, loadCost: {isLoading: false, option: "", originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {error: 'some error'}}}
+    wrapper = wrapperFactory(state);
+
+    render(<Home />, { wrapper });
+
+    expect(document.querySelector('.error__message').innerHTML).toBe("Sorry");
   })
 
   test('Should execute handleSubmit and call showCost and loadCost when clicking "Calculate"', () => {
