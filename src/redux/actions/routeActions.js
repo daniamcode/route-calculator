@@ -37,14 +37,14 @@ export const loadCost = (option, vehicle, distance, origin, destination, costRat
                     isLoading
                 }
             });
-            const originGeoCoded = await axios.get(
+            const originGeoCodedRaw = await axios.get(
                 `https://maps.googleapis.com/maps/api/geocode/json?address=${origin}&key=${googleMapsApiKey}`
             )
-            const destinationGeoCoded = await axios.get(
+            const destinationGeoCodedRaw = await axios.get(
                 `https://maps.googleapis.com/maps/api/geocode/json?address=${destination}&key=${googleMapsApiKey}`
             )
-            const originGeoCodedFormatted = originGeoCoded?.data?.results[0]?.geometry?.location
-            const destinationGeoCodedFormatted = destinationGeoCoded?.data?.results[0]?.geometry?.location
+            const originGeoCodedFormatted = originGeoCodedRaw?.data?.results[0]?.geometry?.location
+            const destinationGeoCodedFormatted = destinationGeoCodedRaw?.data?.results[0]?.geometry?.location
 
             const osrmResponse = await axios.get(
                     `http://router.project-osrm.org/route/v1/driving/${originGeoCodedFormatted.lng},${originGeoCodedFormatted.lat};${destinationGeoCodedFormatted.lng},${destinationGeoCodedFormatted.lat}`
