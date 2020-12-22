@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import configureStore from '../../../redux/configureStore';
 import Home from '../Home';
 import { showCost, loadCost } from "../../../redux/actions/routeActions";
+import {option2} from '../../../data/constants';
 
 jest.mock('../../../redux/actions/routeActions');
 
@@ -39,16 +40,18 @@ describe('Home Component', () => {
   })
 
   xtest('Should render spinner', () => {
-    const state = {showCost: true, loadCost: {isLoading: true, option: "", originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {}}}
+    const state = {showCost: true, loadCost: {cost: 0, isLoading: true, option: {option2}, originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {}}}
     wrapper = wrapperFactory(state);
 
     render(<Home />, { wrapper });
 
-    expect(document.querySelector('.spinner__active')).toBeInTheDocument();
+    
+      expect(document.querySelector('.spinner__active')).toBeInTheDocument();
+    
   })
 
   xtest('Should render error', () => {
-    const state = {showCost: true, loadCost: {isLoading: false, option: "", originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {error: 'some error'}}}
+    const state = {showCost: true, loadCost: {cost: 0, isLoading: false, option: "", originGeoCodedFormatted: {}, destinationGeoCodedFormatted: {}, error: {error: 'some error'}}}
     wrapper = wrapperFactory(state);
 
     render(<Home />, { wrapper });
