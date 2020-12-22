@@ -38,11 +38,11 @@ describe('Form Component', () => {
     expect(document.querySelector('.home__form')).toBeInTheDocument();
   })
 
-  xtest('Should render type of vehicle question', () => {
-    const state = {showCost: false, loadCost: {cost: 0, isLoading: false, option: option2, error: {}}}
+  test('Should render type of vehicle question', () => {
+    const state = {}
     wrapper = wrapperFactory(state);
 
-    render(<Form />, { wrapper });
+    render(<Form option={option2}/>, { wrapper });
 
     expect(document.querySelector('.home__form-input')).toBeInTheDocument();
   })
